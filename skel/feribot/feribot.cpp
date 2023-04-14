@@ -20,18 +20,16 @@ vector<long long int> ReadVector(istream& is, int size) {
     return vec;
 }
 
-long long int find(vector<long long int> vector, long long int minim, long long int maxim, int N, int K, ofstream& fout) {
+long long int find(vector<long long int> vector, long long int minim, long long int maxim, int N, int K) {
 
     long long int i = 0;
     long long int j = 0;
 
-    // fout << "K : " << K;
 
     while(minim != maxim) {
 
         long long int C = (minim + maxim) / 2; // costul cel mai bun
-        // fout << "\nC : " << C;
-        // fout << "\n";
+
         
         j = 0;
 
@@ -48,22 +46,19 @@ long long int find(vector<long long int> vector, long long int minim, long long 
                 cost = cost + vector[i]; // se adauga in vapor
             }
 
-            // fout << "cost : " << cost << " ";
+
             if(j >= K) { // daca am mai multe vapoare, ies
-                // fout << "iesire cu j : " << j << " si i = " << i;
                 break;
             }
 
         }
 
-        // fout << "\ni : " << i << endl;
+
 
         if(i == N) { // daca s au parcurs toate elementele
             maxim = C;
-            // fout << "noul maxim : " << maxim << endl;
         } else {
             minim = C + 1;
-            // fout << "noul minim : " << minim << endl;
         }
         
     }
@@ -95,7 +90,7 @@ int main() {
 
     // fout << "minim : " << min;
     // fout << "\n maxim : " << sum; 
-    fout << find(vector, max, sum, N, K, fout) << "\n";
+    fout << find(vector, max, sum, N, K) << "\n";
 
     return 0;
 }

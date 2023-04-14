@@ -82,10 +82,10 @@ check_coding_style_full() {
             cnt_java=0
         fi
 
-        if [ -z $ONLINE_JUDGE ]; then
-            cat cpp.errors
-            cat java.errors
-        fi
+        # if [ -z $ONLINE_JUDGE ]; then
+        #     cat cpp.errors
+        #     cat java.errors
+        # fi
 
         if ((${cnt_cpp} > 0 || ${cnt_java} > 0)); then
             score=0

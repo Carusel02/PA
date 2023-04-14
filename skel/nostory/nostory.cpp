@@ -13,6 +13,7 @@
 
 using namespace std;
 
+/* preluat din laborator */
 void merge_halves(int left, int right, vector<int>& v) {
 	int mid = (left + right) / 2;
 	vector<int> aux;
@@ -52,15 +53,16 @@ void merge_sort(int left, int right, vector<int>& c) {
 	merge_halves(left, right, c);
 }
 
-int64_t SolveTask1(const vector<int>& a, const vector<int>& b, ofstream& fout) {
+int64_t SolveTask1(const vector<int>& a, const vector<int>& b) {
     
     vector<int> c(2 * a.size());
+    
 
-    for(int i = 0 ; i < a.size() ; i++) {
+    for(int i = 0 ; i < (int)a.size() ; i++) {
         c[i] = a[i];
     }
 
-    for(int i = a.size() ; i < a.size() * 2 ; i++) {
+    for(int i = a.size() ; i < (int)a.size() * 2 ; i++) {
         c[i] = b[i - a.size()];
     }
 
@@ -68,102 +70,38 @@ int64_t SolveTask1(const vector<int>& a, const vector<int>& b, ofstream& fout) {
 
     int64_t score = 0;
 
-    for(int i = c.size() - 1 ; i >= a.size() ; i--) {
+    for(int i = (int)c.size() - 1 ; i >= (int)a.size() ; i--) {
         score += c[i];
     }
 
     return score;
 }
 
-int64_t SolveTask2(vector<int>& a, vector<int>& b, int moves, ofstream& fout) {
+int64_t SolveTask2(vector<int>& a, vector<int>& b, int moves) {
     
     vector<int> maxim(a.size());
-    vector<int> caracteristic(a.size());
-
-    for(int i = 0 ; i < a.size() ; i++) {
-        maxim[i] = max(a[i], b[i]);
-        caracteristic[i] = 1;
-    }
-    
-    // cat timp avem mutari
-    while(moves != 0) {
-        
-        int minim = maxim[0];
-        int position = 0;
-        // find minimum difference
-        for(int i = 0 ; i < maxim.size() ; i++) {
-            // find position of minimum
-            if(minim > maxim[i] && caracteristic[i] == 1) {
-                minim = maxim[i];
-                position = i;
-            }
-        }
-
-        int greatest_score = 0;
-
-        int change = 0;
-        int change_list = 0;
-
-        for(int i = 1 ; i < maxim.size() ; i++) {
-            
-            // dam skip
-            if(i == position || caracteristic[i] == 0)
-                continue;
-            
-            // calculam scorul pentru fiecare pereche modificata
-            int actual_dif = maxim[position] + maxim[i];
-            int schimb_1 = max(a[position], b[i]) + max(b[position], a[i]);
-            int schimb_2 = max(a[i], a[position]) + max(b[i], b[position]);
-
-            int verify1 = schimb_1 - actual_dif;
-            int verify2 = schimb_2 - actual_dif;
-
-            // daca e mai mare
-            if(greatest_score < verify1) {
-                greatest_score = verify1;
-                change = i;
-                change_list = 1;
-            }
-
-            if(greatest_score < verify2) {
-                greatest_score = verify2;
-                change = i;
-                change_list = 0;
-            }
-
-        }
-
-
-        if(change_list == 0) {
-            int aux = a[change];
-            a[change] = a[position];
-            a[position] = aux;
-            maxim[position] = max(a[position], b[position]);
-            maxim[change] = max(a[change], b[change]);
-            caracteristic[position] = 0;
-            caracteristic[change] = 0;
-        } else {
-            int aux = a[change];
-            a[change] = b[position];
-            b[position] = aux;
-            maxim[position] = max(a[position], b[position]);
-            maxim[change] = max(a[change], b[change]);
-            caracteristic[position] = 0;
-            caracteristic[change] = 0;
-        }
-
-        moves--;
-
-    }
-
+    vector<int> minim(a.size());
+    vector<int> add(a.size());
     int64_t score = 0;
-    for(int i = 0 ; i < maxim.size() ; i++) {
+    int iteration = a.size();
+
+    // minim, maxim, scor actual
+    for(int i = 0 ; i < iteration ; i++) {
+        maxim[i] = max(a[i], b[i]);
+        minim[i] = min(a[i], b[i]);
         score += maxim[i];
     }
 
+    // sortam vectorii
+    merge_sort(0, iteration - 1, maxim);
+    merge_sort(0, iteration - 1, minim);
 
+    int64_t add_points = 0;
+    // execut o mutare buna
+    for(int i = 0 ; i < moves ; i++)
+        (minim[a.size() - 1 - i] - maxim[i] > 0) ? add_points += minim[a.size() - 1 - i] - maxim[i] : add_points;
 
-   return score;
+   return score + add_points;
 }
 
 vector<int> ReadVector(istream& is, int size) {
@@ -191,8 +129,8 @@ int main() {
     auto a = ReadVector(fin, n);
     auto b = ReadVector(fin, n);
 
-    auto res = task == 1 ? SolveTask1(a, b, fout) : SolveTask2(a, b, moves, fout);
-    fout << "\n" << res << "\n";
+    auto res = task == 1 ? SolveTask1(a, b) : SolveTask2(a, b, moves);
+    fout << res << "\n";
 
     return 0;
 }
