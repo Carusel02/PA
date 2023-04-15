@@ -5,14 +5,14 @@ CCFLAGS = -Wall -Wextra -std=c++17 -O0 -lm
 
 .PHONY: build clean
 
-build: feribot nostory p3 p4
+build: feribot nostory sushi p4
 
 run-p1:
 	./feribot
 run-p2:
 	./nostory
 run-p3:
-	./p3
+	./sushi
 run-p4:
 	./p4
 
@@ -21,11 +21,11 @@ feribot: skel/feribot/feribot.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
 nostory: skel/nostory/nostory.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
-p3: p3.cpp
+sushi: skel/sushi/sushi.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
 p4: p4.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
 
 # Vom șterge executabilele.
 clean:
-	rm -f feribot nostory p3 p4
+	rm -f feribot nostory sushi p4

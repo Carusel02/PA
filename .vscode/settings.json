@@ -38,6 +38,7 @@
         "array": "cpp",
         "bitset": "cpp",
         "ranges": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "iostream": "cpp"
     }
 }

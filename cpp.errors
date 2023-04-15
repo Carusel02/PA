@@ -54,12 +54,37 @@
 ./skel/nostory/nostory.cpp:101:  Missing space before ( in for(  [whitespace/parens] [5]
 ./skel/nostory/nostory.cpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./skel/nostory/nostory.cpp:104:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./skel/sushi/sushi-skeleton.cpp:8:  Missing username in TODO; it should look like "// TODO(my_username): Stuff."  [readability/todo] [2]
-./skel/sushi/sushi-skeleton.cpp:13:  Missing username in TODO; it should look like "// TODO(my_username): Stuff."  [readability/todo] [2]
-./skel/sushi/sushi-skeleton.cpp:18:  Missing username in TODO; it should look like "// TODO(my_username): Stuff."  [readability/todo] [2]
+./skel/sushi/sushi.cpp:4:  Found C system header after C++ system header. Should be: sushi.h, c system, c++ system, other.  [build/include_order] [4]
+./skel/sushi/sushi.cpp:5:  Found C system header after C++ system header. Should be: sushi.h, c system, c++ system, other.  [build/include_order] [4]
+./skel/sushi/sushi.cpp:13:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./skel/sushi/sushi.cpp:15:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./skel/sushi/sushi.cpp:15:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:40:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./skel/sushi/sushi.cpp:40:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:46:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./skel/sushi/sushi.cpp:46:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./skel/sushi/sushi.cpp:55:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:55:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
+./skel/sushi/sushi.cpp:57:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./skel/sushi/sushi.cpp:74:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./skel/sushi/sushi.cpp:75:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./skel/sushi/sushi.cpp:75:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:100:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./skel/sushi/sushi.cpp:100:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:107:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:117:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:117:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
+./skel/sushi/sushi.cpp:119:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:133:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:133:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./skel/sushi/sushi.cpp:163:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./skel/sushi/sushi.cpp:163:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./skel/sushi/sushi.cpp:231:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
 Done processing ./skel/semnale/semnale-skeleton.cpp
 Done processing ./skel/feribot/feribot.cpp
 Done processing ./skel/nostory/nostory.cpp
-Done processing ./skel/sushi/sushi-skeleton.cpp
+Done processing ./skel/sushi/sushi.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 59
+Total errors found: 84
