@@ -12,85 +12,81 @@
 
 using namespace std;
 
-vector<long long int> ReadVector(istream& is, int size) {
-    vector<long long int> vec(size);
+vector<int64_t> ReadVector(istream& is, int size) {
+    vector<int64_t> vec(size);
     for (auto& num : vec) {
         is >> num;
     }
     return vec;
 }
 
-long long int find(vector<long long int> vector, long long int minim, long long int maxim, int N, int K) {
+int64_t find_C(vector<int64_t> vector, int64_t min, int64_t max, int N, int K) {
+    /* binary search */
+    while (min != max) {
+        /* number of cars */
+        int i = 0;
+        /* number of feribots */
+        int j = 0;
+        /* best cost for now */
+        int64_t C = (min + max) / 2;
+        /* actual cost for sending feribots */
+        int64_t c = 0;
 
-    long long int i = 0;
-    long long int j = 0;
-
-
-    while(minim != maxim) {
-
-        long long int C = (minim + maxim) / 2; // costul cel mai bun
-
-        
-        j = 0;
-
-        long long int cost = 0; // costul ca sa ducem vapoare
-
-        for(i = 0 ; i < N ; i++) {
-
-
-            if(cost + vector[i] > C) {
-                j++ ; // se duce un vapor
-                cost = vector[i]; // se reseteaza costul
-                // fout << "j : " << j << endl;
+        /* for every car */
+        for (i = 0 ; i < N ; i++) {
+            /* if we surpass the limit */
+            if (c + vector[i] > C) {
+                /* send a feribot */
+                j++;
+                /* reset the cost by moving weight on the next feribot */
+                c = vector[i];
             } else {
-                cost = cost + vector[i]; // se adauga in vapor
+                /* add to the feribot */
+                c = c + vector[i];
             }
 
-
-            if(j >= K) { // daca am mai multe vapoare, ies
+            /* if we surpass the number of feribots */
+            if (j >= K)
                 break;
-            }
-
         }
 
-
-
-        if(i == N) { // daca s au parcurs toate elementele
-            maxim = C;
-        } else {
-            minim = C + 1;
-        }
-        
+        /* if we iterate through all cars */
+        if (i == N)
+            /* update the maximum value with C cost */
+            max = C;
+        else
+            /* increase the minimum value by adding 1 */
+            min = C + 1;
     }
 
-
-    return minim;
+    /* return minim or maxim */
+    return min;
 }
 
 int main() {
     ifstream fin("feribot.in");
     ofstream fout("feribot.out");
-    
+
+    /* read N (number of cars) and K (number of feribots) */
     int N, K;
     fin >> N >> K;
 
+    /* read every G (weight) of cars */
     auto vector = ReadVector(fin, N);
-    
-    
-    // make sum of all elements and find min
-    long long int sum = 0;
-    long long int max = vector[0];
 
-    for(int i = 0 ; i < N ; i++) {
+    /* make sum of all weight and find max weight */
+    int64_t sum = 0;
+    int64_t max = vector[0];
+
+    for (int i = 0 ; i < N ; i++) {
         sum += vector[i];
-        if(vector[i] > max) {
+        if (vector[i] > max) {
             max = vector[i];
         }
     }
 
-    // fout << "minim : " << min;
-    // fout << "\n maxim : " << sum; 
-    fout << find(vector, max, sum, N, K) << "\n";
+    /* call function find_C */
+    fout << find_C(vector, max, sum, N, K) << "\n";
 
     return 0;
 }

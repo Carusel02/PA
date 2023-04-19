@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+/* taken from lab */
 int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
     // dp este o matrice de dimensiune (n + 1) x (W + 1)
     // pentru că folosim dp[0][*] pentru mulțimea vidă
@@ -18,32 +18,11 @@ int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
         dp[0][cap] = 0;
     }
 
-	// cout << "GREUTATE TOTALA : " << W << endl;
-
-	// cout << "AMICI : " << n << endl;
-
-	// cout << "PRICES : \n";
-	// for(int i = 1 ; i <= 100 ; i++) {
-	// 	cout << p[i] << " ";
-	// }
-	// cout << endl;
-
-	// cout << "WEIGHT : \n";
-	// for(int i = 1 ; i <= 100 ; i++) {
-	// 	cout << w[i] << " ";
-	// }
-	// cout << endl;
-
-	// cout << "prices : " <<  w[1] << " " << w[2] << endl;
-
-	// cout << endl << "n : " << n << endl << "W : " << W << endl;
- 
     // cazul general
     for (int i = 1; i <= n; ++i) {
         for (int cap = 0; cap <= W; ++cap) {
             // nu folosesc obiectul i => e soluția de la pasul i - 1
             dp[i][cap] = dp[i-1][cap];
- 
             // folosesc obiectul i, deci trebuie să rezerv w[i] unități în rucsac
             // înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
             if (cap - w[i] >= 0) {
@@ -52,59 +31,29 @@ int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
                 dp[i][cap] = max(dp[i][cap], sol_aux);
             }
         }
-		
     }
-	
-	// cout << endl;
-
-	// for(int i = 0 ; i <= n ; i++) {
-	// 	for(int j = 0 ; j <= W ; j++) {
-	// 		cout << dp[i][j] << " ";
-	// 	}
-	// 	cout << endl;
-	// }
 
     return dp[n][W];
 }
 
+/* taken from lab */
 int rucsac2(int n, int W, vector<int> &w, vector<int> &p, int Z) {
     // dp este o matrice de dimensiune (n + 1) x (W + 1)
     // pentru că folosim dp[0][*] pentru mulțimea vidă
     //                   dp[*][0] pentru situația în care ghiozdanul are capacitate 0
     vector<vector<vector<int> > > dp = vector< vector <vector<int> > >(n + 1, vector<vector<int> >(W + 1, vector<int>(Z + 1, 0)));
- 
+
     // cazul de bază
     for (int cap = 0; cap <= W; ++cap) {
         dp[0][cap][0] = 0;
     }
 
-	// cout << "GREUTATE TOTALA : " << W << endl;
-
-	// cout << "AMICI : " << n << endl;
-
-	// cout << "PRICES : \n";
-	// for(int i = 1 ; i <= 100 ; i++) {
-	// 	cout << p[i] << " ";
-	// }
-	// cout << endl;
-
-	// cout << "WEIGHT : \n";
-	// for(int i = 1 ; i <= 100 ; i++) {
-	// 	cout << w[i] << " ";
-	// }
-	// cout << endl;
-
-	// cout << "prices : " <<  w[1] << " " << w[2] << endl;
-
-	// cout << endl << "n : " << n << endl << "W : " << W << endl;
- 
     // cazul general
     for (int i = 1; i <= n; ++i) {
         for (int cap = 0; cap <= W; ++cap) {
 			for(int k = 1 ; k <= Z ; ++k) {
 				// nu folosesc obiectul i => e soluția de la pasul i - 1
 				dp[i][cap][k] = dp[i-1][cap][k];
-	
 				// folosesc obiectul i, deci trebuie să rezerv w[i] unități în rucsac
 				// înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
 				if (cap - w[i] >= 0) {
@@ -114,23 +63,13 @@ int rucsac2(int n, int W, vector<int> &w, vector<int> &p, int Z) {
 				}
 			}
 		}
-		
     }
-	
-	// cout << endl;
-
-	// for(int i = 0 ; i <= n ; i++) {
-	// 	for(int j = 0 ; j <= W ; j++) {
-	// 		cout << dp[i][j] << " ";
-	// 	}
-	// 	cout << endl;
-	// }
 
     return dp[n][W][Z];
 }
 
 int task1(int n, int m, int x, vector <int>& p, vector <vector <int> >& g) {
-	
+
 	vector<int> value(m + 1);
 
 	// for every sushi type
@@ -142,19 +81,10 @@ int task1(int n, int m, int x, vector <int>& p, vector <vector <int> >& g) {
 		}
 	}
 
-	// cout << "values : ";
-	// for(int i = 1 ; i <= m ; i++) {
-
-	// 	cout <<	value[i] << " ";
-	// }
-
-	// cout << endl;
-
 	vector<int> w(m + 1);
 	for(int i = 1 ; i <= m ; i++) {
 		w[i] = p[i - 1];
 	}
-
 
 	return rucsac(m, x * n, w, value);
 }
@@ -173,14 +103,6 @@ int task2(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
 		}
 	}
 
-	// cout << "values : ";
-	// for(int i = 1 ; i <= m ; i++) {
-
-	// 	cout <<	value[i] << " ";
-	// }
-
-	// cout << endl;
-
 	vector<int> w(2 * m + 1);
 	for(int i = 1 ; i <= m ; i++) {
 		w[i] = p[i - 1];
@@ -190,7 +112,6 @@ int task2(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
 		value[i] = value[i - m];
 		w[i] = w[i - m];
 	}
-
 
 	return rucsac(2 * m, x * n, w, value);
 }
@@ -208,14 +129,6 @@ int task3(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
 		}
 	}
 
-	// cout << "values : ";
-	// for(int i = 1 ; i <= m ; i++) {
-
-	// 	cout <<	value[i] << " ";
-	// }
-
-	// cout << endl;
-
 	vector<int> w(2 * m + 1);
 	for(int i = 1 ; i <= m ; i++) {
 		w[i] = p[i - 1];
@@ -226,9 +139,7 @@ int task3(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
 		w[i] = w[i - m];
 	}
 
-
 	return rucsac2(2 * m, x * n, w, value, n);
-
 }
 
 int main() {

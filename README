@@ -1,1 +1,74 @@
-tema1 PA
+Tema1 PA
+
+Implementare:
+
+Problema 1 - feribot
+
+Ideea de rezolvare:
+- deoarece trebuie gasit costul cel mai bun intr un mod cat mai eficient,
+cea mai buna idee dupa parerea mea ar fi un binary search intr un interval
+de costuri posibile (complexitate O(log n))
+- astfel, la capatul din stanga (cea mai mica valoare) se poate alege costul
+maxim (greutatea maxima) al unei masini deoarece in orice caz vom avea costul
+final cel mai mic (optim) pornind de la acesta (in cel mai bun caz in care 
+numarul de feriboturi este >= numarul de masini, raspunsul va fi greutatea cea
+mai mare a tuturor masinilor (1 masina per feribot) )
+exemplu : cost 1 2 3 si 1 feribot => costul final este 6
+                        2 feriboturi => costul final este 3
+                        3  feriboturi => costul final este 3
+                        4,5 ... => costul final este 3
+- in capatul din dreapta va fi suma totala a greutatilor (in cel mai rau caz in
+care avem un singur feribot si trebuie sa punem toate masinile in el)
+- in binary search vom verifica de fiecare data daca costul final distribuit 
+uniform pe toate feriboturile este optim astfel
+                        * daca nu s au parcurs toate masinile, trebuie marit
+                        costul de transport al feriboturilor
+                        * daca s au parcurs toate masinile, se scade din costul
+                        de transport al feriboturilor
+
+Partea de cod:
+- am copiat din scheletul celorlalte probleme functia de citire a
+elementelor unui vector deoarece era necesar sa citesc fiecare
+greutate a unei masini, modificand tipul vectorului la int64_t pentru
+a fi sigur ca se citesc bine si valori foarte mari ale greutatii unei
+masini
+- in functia main se citesc intai N (numarul de masini) si K (numarul
+de feriboturi), apoi toate cele N greutati ale masinilor ; se face
+suma greutatilor si greutatea maxima pentru a fi apelata functia 
+find_C care primeste aceste 2 capete pentru care sa faca un binary search
+si intoarce rezultatul optim al problemei
+- in functia find_C e implementarea unui binary search care calculeaza 
+la fiecare pas costul optim C si verifica daca toate masinile au fost
+parcurse (adaugate in nr total de feriboturi) ; daca s au parcurs toate
+masinile, inseamna ca putem avea o solutie mai buna, deci actualizam 
+maximul la C (valoarea curenta) si iteram mai departe ; daca nu, trebuie
+incrementata valoarea optima (capatul din stanga), cu speranta de a adauga
+intr un final toate masinile
+
+Problema 2 - nostory
+FUNCTIA DE SORTARE MERGE SORT E PRELUATA DIN LAB
+
+Ideea de rezolvare:
+- la primul task ideea este ca la un numar nelimitat de mutari scorul 
+maxim se va obtine prin insumarea primelor N celor mai mari numere
+din cele doua liste deoarece fiecare maxim din cele 2 N va fi cuplat
+cu celelalte N minime
+- la al doilea task daca avem K mutari acele K mutari se vor obtine 
+prin schimbarea celui mai mic maxim cu cel mai mare minim (daca
+diferenta este pozitiva (este o mutare buna))
+
+Partea de cod:
+- in functia main se citesc datele corespunzatoare si se apeleaza
+functia specifica taskului
+- in functia task1 adaug intr un vector toate cele 2 * N elemente
+si il sortez ca sa pot calcula suma primelor N cele mai mari numere
+- in functia task2 aflu fiecare minim si maxim al tuturor perechilor
+pentru a face k mutari in care adaug diferenta dintre ele intr un 
+acumulator daca mutarea este buna (diferenta dintre ele sa fie pozitiva)
+- complexitatea generala ar fi un O(nlogn) de la merge sort 
+
+Problema 3 - sushi
+FUNCTIA DE RUCSAC E PRELUATA DIN LAB
+
+Ideea de rezolvare:
+- 

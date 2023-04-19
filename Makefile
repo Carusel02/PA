@@ -5,7 +5,7 @@ CCFLAGS = -Wall -Wextra -std=c++17 -O0 -lm
 
 .PHONY: build clean
 
-build: feribot nostory sushi p4
+build: feribot nostory sushi semnale badgpt
 
 run-p1:
 	./feribot
@@ -14,7 +14,9 @@ run-p2:
 run-p3:
 	./sushi
 run-p4:
-	./p4
+	./semnale
+run-p5:
+	./badgpt
 
 # Nu uitați să modificați numele surselor și, eventual, ale executabilelor.
 feribot: skel/feribot/feribot.cpp
@@ -23,9 +25,11 @@ nostory: skel/nostory/nostory.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
 sushi: skel/sushi/sushi.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
-p4: p4.cpp
+semnale: skel/semnale/semnale.cpp
+	$(CC) -o $@ $^ $(CCFLAGS)
+badgpt: skel/badgpt/badgpt.cpp
 	$(CC) -o $@ $^ $(CCFLAGS)
 
 # Vom șterge executabilele.
 clean:
-	rm -f feribot nostory sushi p4
+	rm -f feribot nostory sushi semnale badgpt
