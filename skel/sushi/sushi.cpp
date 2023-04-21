@@ -1,8 +1,5 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-#include <string.h>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -10,9 +7,9 @@ using namespace std;
 int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
     // dp este o matrice de dimensiune (n + 1) x (W + 1)
     // pentru că folosim dp[0][*] pentru mulțimea vidă
-    //                   dp[*][0] pentru situația în care ghiozdanul are capacitate 0
+    // dp[*][0] pentru situația în care ghiozdanul are capacitate 0
     vector< vector<int> > dp(n + 1, vector<int>(W + 1, 0));
- 
+
     // cazul de bază
     for (int cap = 0; cap <= W; ++cap) {
         dp[0][cap] = 0;
@@ -23,25 +20,24 @@ int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
         for (int cap = 0; cap <= W; ++cap) {
             // nu folosesc obiectul i => e soluția de la pasul i - 1
             dp[i][cap] = dp[i-1][cap];
-            // folosesc obiectul i, deci trebuie să rezerv w[i] unități în rucsac
+            // folosesc obiectul i, deci trebuie să rezerv w[i] unități
             // înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
             if (cap - w[i] >= 0) {
                 int sol_aux = dp[i-1][cap - w[i]] + p[i];
-				// cout << "| SOL : " << sol_aux << "| ";
                 dp[i][cap] = max(dp[i][cap], sol_aux);
             }
         }
     }
 
-    return dp[n][W];
+	return dp[n][W];
 }
 
 /* taken from lab */
 int rucsac2(int n, int W, vector<int> &w, vector<int> &p, int Z) {
-    // dp este o matrice de dimensiune (n + 1) x (W + 1)
-    // pentru că folosim dp[0][*] pentru mulțimea vidă
-    //                   dp[*][0] pentru situația în care ghiozdanul are capacitate 0
-    vector<vector<vector<int> > > dp = vector< vector <vector<int> > >(n + 1, vector<vector<int> >(W + 1, vector<int>(Z + 1, 0)));
+    // dp este o matrice de dimensiune (n + 1) x (W + 1) x (Z + 1)
+	/* modified with 3 dimensions */
+    vector< vector< vector<int> > >
+	dp(n + 1, vector<vector<int>>(W + 1, vector<int>(Z + 1, 0)));
 
     // cazul de bază
     for (int cap = 0; cap <= W; ++cap) {
@@ -58,7 +54,6 @@ int rucsac2(int n, int W, vector<int> &w, vector<int> &p, int Z) {
 				// înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
 				if (cap - w[i] >= 0) {
 					int sol_aux = dp[i-1][cap - w[i]][k - 1] + p[i];
-					// cout << "| SOL : " << sol_aux << "| ";
 					dp[i][cap][k] = max(dp[i][cap][k], sol_aux);
 				}
 			}
@@ -69,11 +64,10 @@ int rucsac2(int n, int W, vector<int> &w, vector<int> &p, int Z) {
 }
 
 int task1(int n, int m, int x, vector <int>& p, vector <vector <int> >& g) {
-
 	vector<int> value(m + 1);
 
 	// for every sushi type
-	for(int i = 0 ; i < m ; i++) {
+	for (int i = 0 ; i < m ; i++) {
 		// for every note that a person give
 		for(int j = 0 ; j < n ; j++) {
 			// make value (total notes) for every sushi
@@ -82,7 +76,7 @@ int task1(int n, int m, int x, vector <int>& p, vector <vector <int> >& g) {
 	}
 
 	vector<int> w(m + 1);
-	for(int i = 1 ; i <= m ; i++) {
+	for (int i = 1 ; i <= m ; i++) {
 		w[i] = p[i - 1];
 	}
 
@@ -90,7 +84,6 @@ int task1(int n, int m, int x, vector <int>& p, vector <vector <int> >& g) {
 }
 
 int task2(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
-	
 	/* double every sushy type */
 	vector<int> value(2 * m + 1);
 
@@ -117,7 +110,7 @@ int task2(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
 }
 
 int task3(int n, int m, int x, vector <int> &p, vector <vector <int> > &g) {
-		/* double every sushy type */
+	/* double every sushy type */
 	vector<int> value(2 * m + 1);
 
 	// for every sushi type

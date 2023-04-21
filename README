@@ -46,7 +46,8 @@ incrementata valoarea optima (capatul din stanga), cu speranta de a adauga
 intr un final toate masinile
 
 Problema 2 - nostory
-FUNCTIA DE SORTARE MERGE SORT E PRELUATA DIN LAB
+
+FUNCTIA DE SORTARE MERGE SORT E PRELUATA DIN LAB!!
 
 Ideea de rezolvare:
 - la primul task ideea este ca la un numar nelimitat de mutari scorul 
@@ -68,7 +69,71 @@ acumulator daca mutarea este buna (diferenta dintre ele sa fie pozitiva)
 - complexitatea generala ar fi un O(nlogn) de la merge sort 
 
 Problema 3 - sushi
-FUNCTIA DE RUCSAC E PRELUATA DIN LAB
+
+FUNCTIA DE RUCSAC E PRELUATA DIN LAB!!
 
 Ideea de rezolvare:
-- 
+- problema se muleaza de fapt pe problema rucsacului cu volum infinit
+la task1 si task2, astfel se poate aplica algoritmul corespunzator 
+prezentat si in laborator
+- la task ul 3, se mai adauga inca o dimensiune pentru a tine evidenta
+si la un numar N de obiecte care se pun in ghiozdan
+
+Partea de cod:
+- in main se citeste si se apeleaza fiecare functie conform cerintei
+- in functia task1 se face media notelor pentru fiecare platou ce va
+reprezenta valoarea, iar pretul fiecarui platou reprezinta costul
+- in functia task2 lucrurile se prezinta la fel ca la task1 doar ca 
+se dubleaza numarul de platouri
+- in functia task3 se mai adauga o dimensiune a matricii care tine
+evidenta celor N obiecte maxim care pot fi adaugate
+- la task1 si task2 complexitatea ar fi O(n * W)
+- la task3 complexitatea ar fi O(n * W * Z)
+
+Problema 4 - semnale
+
+Ideea de rezolvare:
+- problema se rezolva folosind programare dinamica, utilizand o
+relatie de recurenta intre pasul actual si pasul anterior
+- pentru primul task, relatia de recurenta e urmatoarea:
+    * nr de biti actual cu fix k de 1 = nr biti precent cu fix k de 1 +
+                            + nr de biti anteprecedent cu fix (k - 1) de 1
+    deoarece putem sa mai adaugam un 0 la toate stringurile cu fix k de 1
+    sau putem sa mai adaugam un 10 la toate stringurile de lungime n - 2
+    cu fix (k - 1) de 1
+- pentru al doilea task, relatia de recurenta e urmatoarea:
+    * nr de biti actual cu fix k de 1 = nr biti precent cu fix k de 1 +
+                            + nr de biti anteprecedent cu fix (k - 1) de 1
+                            + nr de biti anteanteprecent cu fix (k - 2) de 1
+    deoarece putem sa mai adaugam un 0 la toate stringurile precedente cu 
+    fix k de 1 sau putem sa mai adaugam un 10 la toate stringurile ante
+    cu fix k - 1 de 1 sau putem sa mai adaugam un 110 la toate stringurile
+    de lungime n - 3 cu fix k - 2 de 1
+
+Partea de cod:
+- la ambele task uri se construieste matricea dp si se initializeaza valorile
+de baza
+- la task1 deoarece este o recurenta de 2 pasi, se declara cazuri de baza primii
+2 termeni, la taskul2 primii 3 termeni
+- se fac operatiile necesare folosind proprietatile % modulo pentru numerele f mari
+- complexitatea este O(n * k) unde n este lungimea sirului si k este numarul de 1,
+fiind data de parcurgerea recurentei de catre cele 2 for uri
+
+Problema 5 - badgpt
+
+FUNCTIA DE EXPONENTIERE E INSPIRATA DIN LAB!!
+
+Ideea de rezolvare:
+- se observa la o scurta privire ca rezultatul obtinut la incrementarea nr de litere
+respecta sirul lui Fibonnaci
+- astfel, totul se rezuma la aflarea numarului n al lui Fibonaci pentru cele n litere
+consecutive de n sau u
+- pentru a rezolva asta intr un mod eficient, se poate folosi ridicarea la putere a
+matricei Fibonacci folosind metoda de ridicare de la lab (exponentierea logaritmica)
+(A la a 4 a = A la 2 a ori A la a 2 a)
+
+Partea de cod:
+- se apeleaza functia find_fibo
+- se returneaza cazurile de baza
+- se defineste o functie auxiliara pentru inmultirea a 2 matrice
+- se foloseste functia de exponentiere de la lab pentru calcul

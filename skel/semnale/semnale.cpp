@@ -6,14 +6,17 @@ using namespace std;
 const int mod = 1000000007;
 
 int type1(int x, int y) {
-    //TODO Compute the number of type 1 signals.
-	int n = x + y;
-	int k = y;
+    // Compute the number of type 1 signals.
 
-	if(y > x + y)
+	/* numbers of bits */
+	int n = x + y;
+	/* numbers of bits of 1 */
+	int k = y;
+	/* error */
+	if (y > x + y)
 		return -1;
 
-	/* create dp matrix with n rows and 2 column*/
+	/* create dp matrix (n + 1) x (y + 1) */
 	vector< vector<int> > dp(n + 1, vector<int>(y + 1, 0));
 
 	/* base case */
@@ -28,11 +31,8 @@ int type1(int x, int y) {
 	dp[2][0] = 1;
 	dp[2][1] = 2;
 	dp[2][2] = 0;
-	
-		
 
-
-	switch(n) {
+	switch (n) {
 		case 0:
 			/* if we have length 0 , return 0 */
 			return 0;
@@ -44,46 +44,31 @@ int type1(int x, int y) {
 		default:
 			/* compute actual numbers of signals */
 			for(int i = 3 ; i <= n ; i++) {
-				for(int j = 0 ; j <= k ; j++) {
-					if(j == 0) {
-						dp[i][j] = 1;
-					} else
-						dp[i][j] = ( dp[i - 1][j] % mod + dp[i - 2][j - 1] % mod ) % mod;
-				}
+				/* for k = 0 of 1 it s only 1 number (00....0000) */
+				dp[i][0] = 1;
+				for(int j = 1 ; j <= k ; j++)
+					dp[i][j] = (dp[i - 1][j] % mod + dp[i - 2][j - 1] % mod) % mod;
 			}
-				// /* number of signals that ends in 0 at next step */
-				// dp[i][0] = dp[i-1][0] % mod + dp[i-1][1] % mod;
-				// /* number of signals that ends in 1 at next step */
-				// if(y - (i - 2) > 0)
-				// dp[i][1] = dp[i-1][0] % mod;
-			
-
-			// for(int i = 0 ; i <= n ; i++) {
-			// 	for(int j = 0 ; j <= k  ; j++) {
-			// 		cout << dp[i][j] << " ";
-			// 	}
-			// 	cout << endl;
-			// }
 
 			return dp[n][k];
 			break;
-
 	}
-
-
 
     return 0;
 }
 
 int type2(int x, int y) {
-    //TODO Compute the number of type 2 signals.
-	int n = x + y;
-	int k = y;
+    // Compute the number of type 2 signals.
 
+	/* number of bits */
+	int n = x + y;
+	/* number of bits of 1 */
+	int k = y;
+	/* error */
 	if(y > x + y)
 		return -1;
 
-	/* create dp matrix with n rows and 2 column*/
+	/* create dp matrix (n + 1) x (y + 1) */
 	vector< vector<int> > dp(n + 1, vector<int>(y + 1, 0));
 
 	/* base case */
@@ -98,12 +83,12 @@ int type2(int x, int y) {
 	dp[2][0] = 1;
 	dp[2][1] = 2;
 	dp[2][2] = 1;
-	dp[3][0] = 1; 
+	dp[3][0] = 1;
 	dp[3][1] = 3;
 	dp[3][2] = 3;
 	dp[3][3] = 0;
-		
-	switch(n) {
+
+	switch (n) {
 		case 0:
 			/* if we have length 0 , return 0 */
 			return 0;
@@ -114,38 +99,20 @@ int type2(int x, int y) {
 			break;
 		default:
 			/* compute actual numbers of signals */
-			for(int i = 4 ; i <= n ; i++) {
-				for(int j = 0 ; j <= k ; j++) {					
-					if(j == 0) {
-						dp[i][j] = 1;
-					} else
-						/* current signals = previos signals of k length + previos signals of k*/
-						dp[i][j] = ( ( dp[i - 1][j] % mod + dp[i - 2][j - 1] % mod ) % mod + dp[i - 3][j - 2] % mod ) % mod;
-				}
+			for (int i = 4 ; i <= n ; i++) {
+				dp[i][0] = 1;
+				for (int j = 1 ; j <= k ; j++)
+						dp[i][j] = ((dp[i - 1][j] % mod + dp[i - 2][j - 1] % mod) % mod +
+																	dp[i - 3][j - 2] % mod) % mod;
 			}
-				// /* number of signals that ends in 0 at next step */
-				// dp[i][0] = dp[i-1][0] % mod + dp[i-1][1] % mod;
-				// /* number of signals that ends in 1 at next step */
-				// if(y - (i - 2) > 0)
-				// dp[i][1] = dp[i-1][0] % mod;
-			
-
-			// for(int i = 0 ; i <= n ; i++) {
-			// 	for(int j = 0 ; j <= k  ; j++) {
-			// 		cout << dp[i][j] << " ";
-			// 	}
-			// 	cout << endl;
-			// }
 
 			return dp[n][k];
 			break;
-
 	}
     return 0;
 }
 
-int main()
-{
+int main() {
     freopen("semnale.in", "r", stdin);
 	freopen("semnale.out", "w", stdout);
 
@@ -153,7 +120,7 @@ int main()
 
 	cin >> sig_type >> x >> y;
 
-    switch(sig_type) {
+    switch (sig_type) {
 		case 1:
 			cout << type1(x, y);;
 			break;
