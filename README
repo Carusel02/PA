@@ -1,83 +1,45 @@
-Topic 1 PA
+# Problem 1 - ferryboat
+### Solution:
+- Employ a binary search to efficiently find the optimal cost for ferry transport.
+- At the lowest cost end, assign the maximum weight for a car, ensuring the final cost is minimal.
+- At the highest cost end, allocate the total sum of car weights.
+- Use binary search to check if distributing the final cost evenly among ferries is optimal. Adjust costs accordingly.
 
-Implementation:
+### Code:
+- Utilize a binary search function to find the optimal cost for ferry transport.
+- Read inputs, calculate total weight and maximum weight, then call the binary search function to find the optimal cost.
 
-Problem 1 - ferryboat
+# Problem 2 - nostory
+### Solution:
+- For the first task, maximize score by pairing the largest numbers from both lists.
+- For the second task, maximize score by swapping the smallest maximum with the largest minimum, given a number of moves.
 
-Idea for Solution:
+### Code:
+- Read inputs and call the corresponding task function.
+Task 1: Sort and sum the largest numbers.
+Task 2: Find the minimum and maximum of all pairs and accumulate the positive differences up to a given number of moves.
 
-Since we need to find the best cost efficiently, in my opinion, the best approach would be a binary search within a range of possible costs (complexity O(log n)).
-Thus, at the left end (the smallest value), the maximum cost (maximum weight) of a car can be chosen because in any case, we will have the smallest final cost (optimal) starting from this (in the best case where the number of ferries is >= the number of cars, the answer will be the highest weight of all cars (1 car per ferry)).
-Example: cost 1 2 3 and 1 ferry => the final cost is 6
-2 ferries => the final cost is 3
-3 ferries => the final cost is 3
-4,5 ... => the final cost is 3
-At the right end, it will be the total sum of the weights (in the worst case where we have only one ferry and need to put all the cars on it).
-In the binary search, we will check each time if the optimally distributed final cost across all ferries is optimal:
-* if not all cars have been traversed, the ferry transport cost needs to be increased
-* if all cars have been traversed, it means we can have a better solution, so we update the maximum to C (the current value) and iterate further
-* if not, the optimal value needs to be incremented (left end), with the hope of adding all the cars in the end.
-Code part:
+# Problem 3 - sushi
+### Solution:
+- Adapt the knapsack problem with infinite volume for tasks 1 and 2.
+For task 3, expand the problem to accommodate adding N objects to the backpack.
 
-I copied the function to read the elements of a vector from the skeleton of the other problems because it was necessary to read each weight of a car, modifying the type of the vector to int64_t to make sure that very large values of the weight of a car are read correctly.
-In the main function, first N (the number of cars) and K (the number of ferries) are read, then all N weights of the cars are read; the sum of the weights and the maximum weight are calculated to call the find_C function which receives these 2 ends to perform a binary search and returns the optimal result of the problem.
-In the find_C function, a binary search implementation calculates the optimal cost C at each step and checks if all cars have been traversed (added to the total number of ferries); if all cars have been traversed, it means we can have a better solution, so we update the maximum to C (the current value) and iterate further; if not, the optimal value needs to be incremented (left end), with the hope of adding all the cars in the end.
-Problem 2 - nostory
+### Code:
+- Read inputs and call each function accordingly.
+Task 1 & 2: Calculate average values for plates and their prices.
+Task 3: Adjust the problem to handle adding N objects to the backpack.
 
-MERGE SORT FUNCTION IS TAKEN FROM LAB!!
+# Problem 4 - signals
+### Solution:
+- Solve using dynamic programming with recurrence relations between steps.
+- For both tasks, relate the current number of bits with specific counts of 1s to the previous steps.
 
-Idea for Solution:
+### Code:
+- Construct and initialize the DP matrix.
+- Implement recurrence relations for both tasks, considering various combinations of 1s in binary strings.
 
-For the first task, the idea is that with an unlimited number of moves, the maximum score will be obtained by summing the first N largest numbers from the two lists because each maximum of the 2N will be paired with the other N minimums.
-For the second task, if we have K moves, those K moves will be obtained by changing the smallest maximum with the largest minimum (if the difference is positive (it's a good move)).
-Code part:
-
-In the main function, the corresponding data is read and the function specific to the task is called.
-In the task1 function, all 2 * N elements are added to a vector and sorted to calculate the sum of the first N largest numbers.
-In the task2 function, each minimum and maximum of all pairs are found to make k moves where the difference between them is positive, and this difference is added to an accumulator if the move is good.
-The general complexity would be O(nlogn) from merge sort.
-Problem 3 - sushi
-
-THE KNAPSACK FUNCTION IS TAKEN FROM LAB!!
-
-Idea for Solution:
-
-The problem is actually based on the knapsack problem with infinite volume for task1 and task2, so the corresponding algorithm presented in the laboratory can be applied.
-In task 3, another dimension is added to keep track of the N objects that can be added to the backpack.
-Code part:
-
-In the main function, each function is read and called according to the requirement.
-In the task1 function, the average grades for each plate are calculated to represent the value, and the price of each plate represents the cost.
-In the task2 function, things are presented similarly to task1, only the number of plates is doubled.
-In the task3 function, another dimension of the matrix is added to keep track of the N objects that can be added.
-For task1 and task2, the complexity would be O(n * W).
-For task3, the complexity would be O(n * W * Z).
-Problem 4 - signals
-
-Idea for Solution:
-
-The problem is solved using dynamic programming, using a recurrence relation between the current step and the previous step.
-For the first task, the recurrence relation is as follows:
-number of bits at the current step with exactly k 1s = number of bits at the previous step with exactly k 1s +
-number of bits at the antecedent step with exactly (k - 1) 1s
-because we can add a 0 to all strings with exactly k 1s, or we can add a 10 to all strings of length n - 2 with exactly (k - 1) 1s.
-For the second task, the recurrence relation is as follows:
-number of bits at the current step with exactly k 1s = number of bits at the previous step with exactly k 1s +
-number of bits at the antecedent step with exactly (k - 1) 1s + number of bits at the anteanteprevious step with exactly (k - 2) 1s
-because we can add a 0 to all previous strings with exactly k 1s, or we can add a 10 to all strings before with exactly k - 1 1s,
-or we can add a 110 to all strings of length n - 3 with exactly k - 2 1s.
-Code part:
-
-For both tasks, the dp matrix is constructed and the base values are initialized.
-For task1, since it's a 2-step recurrence, base cases for the first 2 terms are declared, and for task2, the first 3 terms.
-The necessary operations are performed using properties of modulo for large numbers.
-The complexity is O(n * k) where n is the length of the string and k is the number of 1s, given by the traversal of the recurrence by the two for loops.
-Problem 5 - badgpt
-
-EXPONENTIATION FUNCTION IS INSPIRED FROM LAB!!
-
-Idea for Solution:
-
-It is observed at a glance that the result obtained when increasing the number of letters follows the Fibonacci sequence.
-Thus, everything boils down to finding the n-th Fibonacci number for each consecutive n letters of n or u.
-To solve this efficiently, the matrix exponentiation method can be used to raise the Fibonacci matrix using the logarithmic exponentiation method (A to the power of the 4th = A to the
+# Problem 5 - badgpt
+### Solution:
+- Recognize the Fibonacci sequence in the results and compute the nth Fibonacci number for consecutive n letters of n or u.
+### Code part:
+- Call the function to find the nth Fibonacci number for consecutive n letters of n or u.
