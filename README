@@ -1,139 +1,83 @@
-Tema1 PA
+Topic 1 PA
 
-Implementare:
+Implementation:
 
-Problema 1 - feribot
+Problem 1 - ferryboat
 
-Ideea de rezolvare:
-- deoarece trebuie gasit costul cel mai bun intr un mod cat mai eficient,
-cea mai buna idee dupa parerea mea ar fi un binary search intr un interval
-de costuri posibile (complexitate O(log n))
-- astfel, la capatul din stanga (cea mai mica valoare) se poate alege costul
-maxim (greutatea maxima) al unei masini deoarece in orice caz vom avea costul
-final cel mai mic (optim) pornind de la acesta (in cel mai bun caz in care 
-numarul de feriboturi este >= numarul de masini, raspunsul va fi greutatea cea
-mai mare a tuturor masinilor (1 masina per feribot) )
-exemplu : cost 1 2 3 si 1 feribot => costul final este 6
-                        2 feriboturi => costul final este 3
-                        3  feriboturi => costul final este 3
-                        4,5 ... => costul final este 3
-- in capatul din dreapta va fi suma totala a greutatilor (in cel mai rau caz in
-care avem un singur feribot si trebuie sa punem toate masinile in el)
-- in binary search vom verifica de fiecare data daca costul final distribuit 
-uniform pe toate feriboturile este optim astfel
-                        * daca nu s au parcurs toate masinile, trebuie marit
-                        costul de transport al feriboturilor
-                        * daca s au parcurs toate masinile, se scade din costul
-                        de transport al feriboturilor
+Idea for Solution:
 
-Partea de cod:
-- am copiat din scheletul celorlalte probleme functia de citire a
-elementelor unui vector deoarece era necesar sa citesc fiecare
-greutate a unei masini, modificand tipul vectorului la int64_t pentru
-a fi sigur ca se citesc bine si valori foarte mari ale greutatii unei
-masini
-- in functia main se citesc intai N (numarul de masini) si K (numarul
-de feriboturi), apoi toate cele N greutati ale masinilor ; se face
-suma greutatilor si greutatea maxima pentru a fi apelata functia 
-find_C care primeste aceste 2 capete pentru care sa faca un binary search
-si intoarce rezultatul optim al problemei
-- in functia find_C e implementarea unui binary search care calculeaza 
-la fiecare pas costul optim C si verifica daca toate masinile au fost
-parcurse (adaugate in nr total de feriboturi) ; daca s au parcurs toate
-masinile, inseamna ca putem avea o solutie mai buna, deci actualizam 
-maximul la C (valoarea curenta) si iteram mai departe ; daca nu, trebuie
-incrementata valoarea optima (capatul din stanga), cu speranta de a adauga
-intr un final toate masinile
+Since we need to find the best cost efficiently, in my opinion, the best approach would be a binary search within a range of possible costs (complexity O(log n)).
+Thus, at the left end (the smallest value), the maximum cost (maximum weight) of a car can be chosen because in any case, we will have the smallest final cost (optimal) starting from this (in the best case where the number of ferries is >= the number of cars, the answer will be the highest weight of all cars (1 car per ferry)).
+Example: cost 1 2 3 and 1 ferry => the final cost is 6
+2 ferries => the final cost is 3
+3 ferries => the final cost is 3
+4,5 ... => the final cost is 3
+At the right end, it will be the total sum of the weights (in the worst case where we have only one ferry and need to put all the cars on it).
+In the binary search, we will check each time if the optimally distributed final cost across all ferries is optimal:
+* if not all cars have been traversed, the ferry transport cost needs to be increased
+* if all cars have been traversed, it means we can have a better solution, so we update the maximum to C (the current value) and iterate further
+* if not, the optimal value needs to be incremented (left end), with the hope of adding all the cars in the end.
+Code part:
 
-Problema 2 - nostory
+I copied the function to read the elements of a vector from the skeleton of the other problems because it was necessary to read each weight of a car, modifying the type of the vector to int64_t to make sure that very large values of the weight of a car are read correctly.
+In the main function, first N (the number of cars) and K (the number of ferries) are read, then all N weights of the cars are read; the sum of the weights and the maximum weight are calculated to call the find_C function which receives these 2 ends to perform a binary search and returns the optimal result of the problem.
+In the find_C function, a binary search implementation calculates the optimal cost C at each step and checks if all cars have been traversed (added to the total number of ferries); if all cars have been traversed, it means we can have a better solution, so we update the maximum to C (the current value) and iterate further; if not, the optimal value needs to be incremented (left end), with the hope of adding all the cars in the end.
+Problem 2 - nostory
 
-FUNCTIA DE SORTARE MERGE SORT E PRELUATA DIN LAB!!
+MERGE SORT FUNCTION IS TAKEN FROM LAB!!
 
-Ideea de rezolvare:
-- la primul task ideea este ca la un numar nelimitat de mutari scorul 
-maxim se va obtine prin insumarea primelor N celor mai mari numere
-din cele doua liste deoarece fiecare maxim din cele 2 N va fi cuplat
-cu celelalte N minime
-- la al doilea task daca avem K mutari acele K mutari se vor obtine 
-prin schimbarea celui mai mic maxim cu cel mai mare minim (daca
-diferenta este pozitiva (este o mutare buna))
+Idea for Solution:
 
-Partea de cod:
-- in functia main se citesc datele corespunzatoare si se apeleaza
-functia specifica taskului
-- in functia task1 adaug intr un vector toate cele 2 * N elemente
-si il sortez ca sa pot calcula suma primelor N cele mai mari numere
-- in functia task2 aflu fiecare minim si maxim al tuturor perechilor
-pentru a face k mutari in care adaug diferenta dintre ele intr un 
-acumulator daca mutarea este buna (diferenta dintre ele sa fie pozitiva)
-- complexitatea generala ar fi un O(nlogn) de la merge sort 
+For the first task, the idea is that with an unlimited number of moves, the maximum score will be obtained by summing the first N largest numbers from the two lists because each maximum of the 2N will be paired with the other N minimums.
+For the second task, if we have K moves, those K moves will be obtained by changing the smallest maximum with the largest minimum (if the difference is positive (it's a good move)).
+Code part:
 
-Problema 3 - sushi
+In the main function, the corresponding data is read and the function specific to the task is called.
+In the task1 function, all 2 * N elements are added to a vector and sorted to calculate the sum of the first N largest numbers.
+In the task2 function, each minimum and maximum of all pairs are found to make k moves where the difference between them is positive, and this difference is added to an accumulator if the move is good.
+The general complexity would be O(nlogn) from merge sort.
+Problem 3 - sushi
 
-FUNCTIA DE RUCSAC E PRELUATA DIN LAB!!
+THE KNAPSACK FUNCTION IS TAKEN FROM LAB!!
 
-Ideea de rezolvare:
-- problema se muleaza de fapt pe problema rucsacului cu volum infinit
-la task1 si task2, astfel se poate aplica algoritmul corespunzator 
-prezentat si in laborator
-- la task ul 3, se mai adauga inca o dimensiune pentru a tine evidenta
-si la un numar N de obiecte care se pun in ghiozdan
+Idea for Solution:
 
-Partea de cod:
-- in main se citeste si se apeleaza fiecare functie conform cerintei
-- in functia task1 se face media notelor pentru fiecare platou ce va
-reprezenta valoarea, iar pretul fiecarui platou reprezinta costul
-- in functia task2 lucrurile se prezinta la fel ca la task1 doar ca 
-se dubleaza numarul de platouri
-- in functia task3 se mai adauga o dimensiune a matricii care tine
-evidenta celor N obiecte maxim care pot fi adaugate
-- la task1 si task2 complexitatea ar fi O(n * W)
-- la task3 complexitatea ar fi O(n * W * Z)
+The problem is actually based on the knapsack problem with infinite volume for task1 and task2, so the corresponding algorithm presented in the laboratory can be applied.
+In task 3, another dimension is added to keep track of the N objects that can be added to the backpack.
+Code part:
 
-Problema 4 - semnale
+In the main function, each function is read and called according to the requirement.
+In the task1 function, the average grades for each plate are calculated to represent the value, and the price of each plate represents the cost.
+In the task2 function, things are presented similarly to task1, only the number of plates is doubled.
+In the task3 function, another dimension of the matrix is added to keep track of the N objects that can be added.
+For task1 and task2, the complexity would be O(n * W).
+For task3, the complexity would be O(n * W * Z).
+Problem 4 - signals
 
-Ideea de rezolvare:
-- problema se rezolva folosind programare dinamica, utilizand o
-relatie de recurenta intre pasul actual si pasul anterior
-- pentru primul task, relatia de recurenta e urmatoarea:
-    * nr de biti actual cu fix k de 1 = nr biti precent cu fix k de 1 +
-                            + nr de biti anteprecedent cu fix (k - 1) de 1
-    deoarece putem sa mai adaugam un 0 la toate stringurile cu fix k de 1
-    sau putem sa mai adaugam un 10 la toate stringurile de lungime n - 2
-    cu fix (k - 1) de 1
-- pentru al doilea task, relatia de recurenta e urmatoarea:
-    * nr de biti actual cu fix k de 1 = nr biti precent cu fix k de 1 +
-                            + nr de biti anteprecedent cu fix (k - 1) de 1
-                            + nr de biti anteanteprecent cu fix (k - 2) de 1
-    deoarece putem sa mai adaugam un 0 la toate stringurile precedente cu 
-    fix k de 1 sau putem sa mai adaugam un 10 la toate stringurile ante
-    cu fix k - 1 de 1 sau putem sa mai adaugam un 110 la toate stringurile
-    de lungime n - 3 cu fix k - 2 de 1
+Idea for Solution:
 
-Partea de cod:
-- la ambele task uri se construieste matricea dp si se initializeaza valorile
-de baza
-- la task1 deoarece este o recurenta de 2 pasi, se declara cazuri de baza primii
-2 termeni, la taskul2 primii 3 termeni
-- se fac operatiile necesare folosind proprietatile % modulo pentru numerele f mari
-- complexitatea este O(n * k) unde n este lungimea sirului si k este numarul de 1,
-fiind data de parcurgerea recurentei de catre cele 2 for uri
+The problem is solved using dynamic programming, using a recurrence relation between the current step and the previous step.
+For the first task, the recurrence relation is as follows:
+number of bits at the current step with exactly k 1s = number of bits at the previous step with exactly k 1s +
+number of bits at the antecedent step with exactly (k - 1) 1s
+because we can add a 0 to all strings with exactly k 1s, or we can add a 10 to all strings of length n - 2 with exactly (k - 1) 1s.
+For the second task, the recurrence relation is as follows:
+number of bits at the current step with exactly k 1s = number of bits at the previous step with exactly k 1s +
+number of bits at the antecedent step with exactly (k - 1) 1s + number of bits at the anteanteprevious step with exactly (k - 2) 1s
+because we can add a 0 to all previous strings with exactly k 1s, or we can add a 10 to all strings before with exactly k - 1 1s,
+or we can add a 110 to all strings of length n - 3 with exactly k - 2 1s.
+Code part:
 
-Problema 5 - badgpt
+For both tasks, the dp matrix is constructed and the base values are initialized.
+For task1, since it's a 2-step recurrence, base cases for the first 2 terms are declared, and for task2, the first 3 terms.
+The necessary operations are performed using properties of modulo for large numbers.
+The complexity is O(n * k) where n is the length of the string and k is the number of 1s, given by the traversal of the recurrence by the two for loops.
+Problem 5 - badgpt
 
-FUNCTIA DE EXPONENTIERE E INSPIRATA DIN LAB!!
+EXPONENTIATION FUNCTION IS INSPIRED FROM LAB!!
 
-Ideea de rezolvare:
-- se observa la o scurta privire ca rezultatul obtinut la incrementarea nr de litere
-respecta sirul lui Fibonnaci
-- astfel, totul se rezuma la aflarea numarului n al lui Fibonaci pentru cele n litere
-consecutive de n sau u
-- pentru a rezolva asta intr un mod eficient, se poate folosi ridicarea la putere a
-matricei Fibonacci folosind metoda de ridicare de la lab (exponentierea logaritmica)
-(A la a 4 a = A la 2 a ori A la a 2 a)
+Idea for Solution:
 
-Partea de cod:
-- se apeleaza functia find_fibo
-- se returneaza cazurile de baza
-- se defineste o functie auxiliara pentru inmultirea a 2 matrice
-- se foloseste functia de exponentiere de la lab pentru calcul
+It is observed at a glance that the result obtained when increasing the number of letters follows the Fibonacci sequence.
+Thus, everything boils down to finding the n-th Fibonacci number for each consecutive n letters of n or u.
+To solve this efficiently, the matrix exponentiation method can be used to raise the Fibonacci matrix using the logarithmic exponentiation method (A to the power of the 4th = A to the
